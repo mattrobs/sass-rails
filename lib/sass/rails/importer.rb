@@ -47,9 +47,9 @@ module Sass::Rails
       elsif pathname = resolve(name, base_pathname.dirname)
         context.depend_on(pathname)
         if sass_file?(pathname)
-          Sass::Engine.new(pathname.read, options.merge(:filename => pathname.to_s, :importer => self, :syntax => syntax(pathname)))
+          SassC::Engine.new(pathname.read, options.merge(:filename => pathname.to_s, :importer => self, :syntax => syntax(pathname)))
         else
-          Sass::Engine.new(@resolver.process(pathname), options.merge(:filename => pathname.to_s, :importer => self, :syntax => :scss))
+          SassC::Engine.new(@resolver.process(pathname), options.merge(:filename => pathname.to_s, :importer => self, :syntax => :scss))
         end
       else
         nil
@@ -62,9 +62,9 @@ module Sass::Rails
       elsif pathname = resolve(name)
         context.depend_on(pathname)
         if sass_file?(pathname)
-          Sass::Engine.new(pathname.read, options.merge(:filename => pathname.to_s, :importer => self, :syntax => syntax(pathname)))
+          SassC::Engine.new(pathname.read, options.merge(:filename => pathname.to_s, :importer => self, :syntax => syntax(pathname)))
         else
-          Sass::Engine.new(@resolver.process(pathname), options.merge(:filename => pathname.to_s, :importer => self, :syntax => :scss))
+          SassC::Engine.new(@resolver.process(pathname), options.merge(:filename => pathname.to_s, :importer => self, :syntax => :scss))
         end
       else
         nil
@@ -89,7 +89,7 @@ module Sass::Rails
         end
       end
       return nil if contents.empty?
-      Sass::Engine.new(contents, options.merge(
+      SassC::Engine.new(contents, options.merge(
         :filename => base_pathname.to_s,
         :importer => self,
         :syntax => :scss
